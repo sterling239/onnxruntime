@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 #include "core/session/ort_env.h"
 #include "core/graph/model.h"
 #include "core/graph/graph.h"
@@ -81,6 +84,15 @@ BENCHMARK(BM_EigenTP_ScaledTanhCompute)
     ->Arg(40000)
     ->Arg(80000);
 
+BENCHMARK(BM_Win32TP_ScaledTanhCompute)
+    ->UseRealTime()
+    ->Unit(benchmark::TimeUnit::kNanosecond)
+    ->Arg(100)
+    ->Arg(1000)
+    ->Arg(10000)
+    ->Arg(20000)
+    ->Arg(40000)
+    ->Arg(80000);
 static void BM_EluCompute(OrtThreadPoolImplType impl_type, benchmark::State& state) {
   RunSingleNode<Elu<float>>("Elu", "",
                             {
@@ -91,6 +103,19 @@ static void BM_EluCompute(OrtThreadPoolImplType impl_type, benchmark::State& sta
 DEFINE_BENCHMARK_WITH_TP_TYPE(EluCompute);
 
 BENCHMARK(BM_EigenTP_EluCompute)
+    ->UseRealTime()
+    ->Unit(benchmark::TimeUnit::kNanosecond)
+    ->Arg(100)
+    ->Arg(1000)
+    ->Arg(2000)
+    ->Arg(4000)
+    ->Arg(8000)
+    ->Arg(10000)
+    ->Arg(20000)
+    ->Arg(40000)
+    ->Arg(80000);
+
+BENCHMARK(BM_Win32TP_EluCompute)
     ->UseRealTime()
     ->Unit(benchmark::TimeUnit::kNanosecond)
     ->Arg(100)

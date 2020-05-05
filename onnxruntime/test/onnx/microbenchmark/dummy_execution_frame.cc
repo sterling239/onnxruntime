@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 #include "dummy_execution_frame.h"
 
 using namespace onnxruntime;
