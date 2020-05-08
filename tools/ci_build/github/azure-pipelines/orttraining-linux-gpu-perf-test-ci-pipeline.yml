@@ -1,0 +1,39 @@
+trigger: none
+
+jobs:
+- job: Onnxruntime_Linux_GPU_Training_Perf_Test
+
+  timeoutInMinutes: 120
+
+  steps:
+  - checkout: self
+    clean: true
+    submodules: recursive
+
+  - script: >
+      tools/ci_build/github/linux/run_dockerbuild.sh
+      -o ubuntu16.04 -d gpu -r $(Build.BinariesDirectory)
+      -x "
+      --config RelWithDebInfo
+      --enable_training
+      --update --build
+      "
+    displayName: 'Build and run performance tests'
+
+#
+# TODO scripts to run training test(s)
+#
+
+#
+# TODO scripts to generate jdbc.properties
+#
+
+#
+# TODO scripts to maven build
+#
+
+#
+# TODO scripts to run java
+#
+
+  - template: templates/clean-agent-build-directory-step.yml
