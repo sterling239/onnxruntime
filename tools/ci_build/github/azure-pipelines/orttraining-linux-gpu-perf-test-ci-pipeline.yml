@@ -18,11 +18,24 @@ jobs:
       --enable_training
       --update --build
       "
-    displayName: 'Build and run performance tests'
+    displayName: 'Build performance tests'
 
 #
-# TODO scripts to run training test(s)
+# scripts to run training test(s)
 #
+  - script: >
+      docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu 
+      --volume $(SOURCE_ROOT):/onnxruntime_src 
+      --volume $(Build.BinariesDirectory):/build 
+      --volume /bert_ort/bert_models:/build/bert_models:ro 
+      --volume /bert_data:/build/bert_data:ro 
+      --volume /home/azure_devops_agent/.cache/onnxruntime:/home/onnxruntimedev/.cache/onnxruntime 
+      --volume /home/azure_devops_agent/.onnx:/home/onnxruntimedev/.onnx
+      /usr/bin/python3.6 "/onnxruntime_src/orttraining/tools/ci_test/run_bert_perf_test.py" 
+      "--binary_dir" "/build/RelWithDebInfo" 
+      "--training_data_root" "/build/bert_data" 
+      "--model_root" "/build/bert_models"
+    displayName: 'Run bert performance tests'
 
 #
 # TODO scripts to generate jdbc.properties
