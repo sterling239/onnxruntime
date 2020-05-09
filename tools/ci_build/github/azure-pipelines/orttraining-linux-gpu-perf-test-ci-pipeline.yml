@@ -25,7 +25,7 @@ jobs:
 #
   - script: >
       docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu 
-      --volume $(SOURCE_ROOT):/onnxruntime_src 
+      --volume $(Build.SourcesDirectory):/onnxruntime_src 
       --volume $(Build.BinariesDirectory):/build 
       --volume /bert_ort/bert_models:/build/bert_models:ro 
       --volume /bert_data:/build/bert_data:ro 
