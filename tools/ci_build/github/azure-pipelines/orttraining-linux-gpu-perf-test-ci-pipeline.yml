@@ -28,7 +28,7 @@ jobs:
     displayName: 'Remove bert container if exist'
 
   - script: >
-      docker run run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-bert 
+      docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-bert 
       --volume $(Build.SourcesDirectory):/onnxruntime_src 
       --volume $(Build.BinariesDirectory):/build 
       --volume /bert_ort/bert_models:/build/bert_models:ro 
