@@ -24,7 +24,11 @@ jobs:
 # scripts to run training test(s)
 #
   - script: >
-      docker run --name onnxruntime-gpu-bert 
+      docker rm -f "onnxruntime-gpu-bert" || true
+    displayName: 'Remove bert container if exist'
+
+  - script: >
+      docker run run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-bert 
       --volume $(Build.SourcesDirectory):/onnxruntime_src 
       --volume $(Build.BinariesDirectory):/build 
       --volume /bert_ort/bert_models:/build/bert_models:ro 
@@ -35,10 +39,6 @@ jobs:
       "--training_data_root" "/build/bert_data" 
       "--model_root" "/build/bert_models"
     displayName: 'Run bert performance tests'
-
-  - script: >
-      docker rm -f "onnxruntime-gpu-bert" || true
-    displayName: 'Remove bert container'
 
 #
 # TODO scripts to generate jdbc.properties

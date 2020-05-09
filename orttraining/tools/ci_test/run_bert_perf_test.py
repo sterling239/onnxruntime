@@ -23,11 +23,7 @@ def parse_args():
   return parser.parse_args()
 
 def main():
-  args = parse_args()
-
-  with tempfile.TemporaryDirectory() as output_dir:
-    convergence_test_output_path = os.path.join(
-        output_dir, "convergence_test_out.csv")
+    args = parse_args()
 
     # run BERT training
     subprocess.run([
@@ -57,6 +53,7 @@ def main():
         "--perf_output_dir", os.path.join(SCRIPT_DIR, "results"), 
     ]).check_returncode()
 
+ return 0
 
 if __name__ == "__main__":
   sys.exit(main())
