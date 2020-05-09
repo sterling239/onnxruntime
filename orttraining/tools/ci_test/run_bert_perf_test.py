@@ -53,7 +53,7 @@ def main():
         "--perf_output_dir", os.path.join(SCRIPT_DIR, "results"), 
     ]).check_returncode()
 
- return 0
+    return 0
 
 if __name__ == "__main__":
   sys.exit(main())
