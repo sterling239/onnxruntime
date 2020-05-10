@@ -54,8 +54,8 @@ jobs:
       docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-perf 
       --volume $(Build.SourcesDirectory):/onnxruntime_src 
       -e NIGHTLY_BUILD onnxruntime-ubuntu16.04-cuda10.1-cudnn7.6
-      /bin/mkdir -p /onnxruntime_src/tools/perf_util/src/main/resources &&
-      ls /onnxruntime_src/tools/perf_util/src/main 
+      /bin/bash -c "/bin/mkdir -p /onnxruntime_src/tools/perf_util/src/main/resources &&
+      ls /onnxruntime_src/tools/perf_util/src/main" 
 
     displayName: 'Create resource directory'
 
