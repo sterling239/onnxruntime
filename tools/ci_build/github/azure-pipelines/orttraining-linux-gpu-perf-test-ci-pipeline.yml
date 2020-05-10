@@ -6,7 +6,7 @@ jobs:
   timeoutInMinutes: 120
 
   variables: 
-  - group: 'ortperf (1)' # variable group
+  - group: 'ortperf' # variable group
 
   steps:
   - checkout: self
