@@ -54,7 +54,8 @@ jobs:
       docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-perf 
       --volume $(Build.SourcesDirectory):/onnxruntime_src 
       -e NIGHTLY_BUILD onnxruntime-ubuntu16.04-cuda10.1-cudnn7.6
-      /bin/mkdir -p /onnxruntime_src/tools/perf_util/src/main/resources
+      /bin/mkdir -p /onnxruntime_src/tools/perf_util/src/main/resources &&
+      ls /onnxruntime_src/tools/perf_util/src/main 
 
     displayName: 'Create resource directory'
 
@@ -62,16 +63,16 @@ jobs:
       docker rm -f "onnxruntime-gpu-perf" || true
     displayName: 'Remove perf container'
 
-  - script: >
-      docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-perf 
-      --volume $(Build.SourcesDirectory):/onnxruntime_src 
-      -e NIGHTLY_BUILD onnxruntime-ubuntu16.04-cuda10.1-cudnn7.6
-      /bin/ls /onnxruntime_src/tools/perf_util/src/main
-    displayName: 'Check resource directory'
+  # - script: >
+  #     docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-perf 
+  #     --volume $(Build.SourcesDirectory):/onnxruntime_src 
+  #     -e NIGHTLY_BUILD onnxruntime-ubuntu16.04-cuda10.1-cudnn7.6
+  #     /bin/ls /onnxruntime_src/tools/perf_util/src/main
+  #   displayName: 'Check resource directory'
 
-  - script: >
-      docker rm -f "onnxruntime-gpu-perf" || true
-    displayName: 'Remove perf container'
+  # - script: >
+  #     docker rm -f "onnxruntime-gpu-perf" || true
+  #   displayName: 'Remove perf container'
 
   # - script: >
   #     docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-perf 
