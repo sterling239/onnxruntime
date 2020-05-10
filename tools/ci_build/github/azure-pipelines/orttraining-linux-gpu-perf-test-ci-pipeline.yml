@@ -40,13 +40,59 @@ jobs:
       "--model_root" "/build/bert_models"
     displayName: 'Run bert performance tests'
 
-  # - script: >
-  #     docker rm -f "onnxruntime-gpu-perf" || true
-  #   displayName: 'Remove perf container'
+  - script: >
+      docker rm -f "onnxruntime-gpu-perf" || true
+    displayName: 'Remove perf container'
 
 #
-# TODO scripts to generate jdbc.properties
+# scripts to generate jdbc.properties
 #
+variables: 
+- group: 'ortperf (1)' # variable group
+  env:
+    ORT_PERF_PASSWORD: $(ortperf) 
+
+  - script: >
+      docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-perf 
+      --volume $(Build.SourcesDirectory):/onnxruntime_src 
+      -e NIGHTLY_BUILD onnxruntime-ubuntu16.04-cuda10.1-cudnn7.6
+      /bin/mkdir -p /onnxruntime_src/tools/perf_util/src/main/resources
+    displayName: 'Create Java resource directory'
+
+  - script: >
+      docker rm -f "onnxruntime-gpu-perf" || true
+    displayName: 'Remove perf container'
+
+  - script: >
+      docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-perf 
+      --volume $(Build.SourcesDirectory):/onnxruntime_src 
+      -e NIGHTLY_BUILD onnxruntime-ubuntu16.04-cuda10.1-cudnn7.6
+      /bin/ls /onnxruntime_src/tools/perf_util/src/main
+    displayName: 'Check Java resource directory'
+
+  - script: >
+      docker rm -f "onnxruntime-gpu-perf" || true
+    displayName: 'Remove perf container'
+
+  - script: >
+      docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-perf 
+      --volume $(Build.SourcesDirectory):/onnxruntime_src 
+      -e NIGHTLY_BUILD onnxruntime-ubuntu16.04-cuda10.1-cudnn7.6
+      /usr/bin/printf 
+      "url=jdbc:mysql://onnxruntimedashboard.mysql.database.azure.com/onnxruntime?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8\nuser=powerbi@onnxruntimedashboard\npassword=$ORT_PERF_PASSWORD" 
+      > /onnxruntime_src/tools/perf_util/src/main/resources/jdbc.properties
+    displayName: 'Create Java resource directory'
+
+  - script: >
+      docker rm -f "onnxruntime-gpu-perf" || true
+    displayName: 'Remove perf container'
+
+  - script: >
+      docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-perf 
+      --volume $(Build.SourcesDirectory):/onnxruntime_src 
+      -e NIGHTLY_BUILD onnxruntime-ubuntu16.04-cuda10.1-cudnn7.6
+      /bin/ls -la /onnxruntime_src/tools/perf_util/src/main/resources
+    displayName: 'Check Java resource file'
 
 #
 # TODO scripts to maven build
