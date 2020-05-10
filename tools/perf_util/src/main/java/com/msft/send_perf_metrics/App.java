@@ -78,6 +78,7 @@ public class App {
 										   String batch_id) throws Exception {
 		try {
 			Connection conn = JdbcUtil.GetConn();
+			System.out.println("MySQL DB connection established.\n");
 			// go thru each json file
 			JSONParser jsonParser = new JSONParser();
 			for (Path metrics_json : perf_metrics) {
