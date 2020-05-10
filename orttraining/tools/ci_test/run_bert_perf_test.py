@@ -40,9 +40,9 @@ def main():
             "--model_name", os.path.join(
                 args.model_root, "nv/bert-large/bert-large-uncased_L_24_H_1024_A_16_V_30528_S_512_Dp_0.1_optimized_layer_norm"),
             "--train_data_dir", os.path.join(
-                args.training_data_root, "128/books_wiki_en_corpus/train"),
+                args.training_data_root, str(matrix[m][1]), "books_wiki_en_corpus/train"),
             "--test_data_dir", os.path.join(
-                args.training_data_root, "128/books_wiki_en_corpus/test"),
+                args.training_data_root, str(matrix[m][1]), "books_wiki_en_corpus/test"),
             "--train_batch_size", str(matrix[m][2]),
             "--mode", "train",
             "--max_seq_length", str(matrix[m][1]),
