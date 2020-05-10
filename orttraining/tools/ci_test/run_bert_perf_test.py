@@ -56,6 +56,7 @@ def main():
             "--max_predictions_per_seq", str(matrix[m][3]),
             "--lambda", "0",
             "--use_nccl",
+            "--perf_output_dir", os.path.join(SCRIPT_DIR, "results"), 
         ]
 
         if matrix[m][0]: 
