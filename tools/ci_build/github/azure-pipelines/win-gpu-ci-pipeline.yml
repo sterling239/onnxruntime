@@ -31,8 +31,15 @@ jobs:
       modifyEnvironment: true
       workingFolder: '$(Build.BinariesDirectory)'
 
+  - task: BatchScript@1
+    displayName: 'setup env'
+    inputs:
+      filename: 'C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat'
+      modifyEnvironment: true
+      arguments: amd64
+      workingFolder: '$(Build.BinariesDirectory)'
+
   - script: |
-     "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" amd64
      cl /EHsc $(Build.SourcesDirectory)\1.cpp
      1.exe
      python -m pip install -q pyopenssl setuptools wheel numpy scipy
