@@ -6,8 +6,6 @@ jobs:
     matrix:
       debug:
         BuildConfig: 'Debug'
-      release:
-        BuildConfig: 'RelWithDebInfo'
   variables:
     OrtPackageId: 'Microsoft.ML.OnnxRuntime'
     MsbuildArguments: '-detailedsummary -maxcpucount -consoleloggerparameters:PerformanceSummary'
@@ -34,6 +32,9 @@ jobs:
       workingFolder: '$(Build.BinariesDirectory)'
 
   - script: |
+     "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" amd64
+     cl /EHsc $(Build.SourcesDirectory)\1.cpp
+     1.exe
      python -m pip install -q pyopenssl setuptools wheel numpy scipy
     workingDirectory: '$(Build.BinariesDirectory)'
     displayName: 'Install python modules'
