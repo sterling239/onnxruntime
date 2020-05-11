@@ -5,7 +5,7 @@ jobs:
     maxParallel: 2
     matrix:
       debug:
-        BuildConfig: 'Debug'
+        BuildConfig: 'RelWithDebInfo'
   variables:
     OrtPackageId: 'Microsoft.ML.OnnxRuntime'
     MsbuildArguments: '-detailedsummary -maxcpucount -consoleloggerparameters:PerformanceSummary'
@@ -40,8 +40,6 @@ jobs:
       workingFolder: '$(Build.BinariesDirectory)'
 
   - script: |
-     cl /EHsc $(Build.SourcesDirectory)\1.cpp
-     1.exe
      python -m pip install -q pyopenssl setuptools wheel numpy scipy
     workingDirectory: '$(Build.BinariesDirectory)'
     displayName: 'Install python modules'
