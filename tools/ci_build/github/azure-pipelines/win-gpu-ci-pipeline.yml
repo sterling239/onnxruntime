@@ -1,6 +1,6 @@
 jobs:
 - job: 'build'
-  pool: 'Win-GPU-2019'
+  pool: 'SCMTest'
   strategy:
     maxParallel: 2
     matrix:
