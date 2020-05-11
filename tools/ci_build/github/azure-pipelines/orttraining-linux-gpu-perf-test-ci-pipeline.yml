@@ -23,7 +23,7 @@ jobs:
       "
     displayName: 'Build performance tests'
 
-  # - script: >
+ - script: >
       docker run --gpus all -h OrtTrainingDev0 --rm --name onnxruntime-gpu-perf 
       --volume $(Build.SourcesDirectory):/onnxruntime_src 
       --volume $(Build.BinariesDirectory):/build 
