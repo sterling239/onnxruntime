@@ -23,11 +23,6 @@ jobs:
       "
     displayName: 'Build performance tests'
 
-  # run training test(s)
-  # - script: >
-  #     docker rm -f "onnxruntime-gpu-perf" || true
-  #   displayName: 'Remove perf container'
-
   - script: >
       docker run --gpus all -h OrtTrainingDev0 --rm --name onnxruntime-gpu-perf 
       --volume $(Build.SourcesDirectory):/onnxruntime_src 
@@ -41,10 +36,6 @@ jobs:
       "--model_root" "/build/bert_models"
     displayName: 'Run bert performance tests'
 
-  # - script: >
-  #     docker rm -f "onnxruntime-gpu-perf" || true
-  #   displayName: 'Remove perf container'
-
   # generate jdbc.properties
   - script: >
       docker run -h OrtTrainingDev0 --rm --name onnxruntime-gpu-perf 
@@ -57,14 +48,14 @@ jobs:
       ORT_PERF_PASSWORD: $(ortperf) 
     displayName: 'Create resource file'
 
-  # - script: >
-  #     docker rm -f "onnxruntime-gpu-perf" || true
-  #   displayName: 'Remove perf container'
-
-  #
-  # TODO scripts to maven build
-  #
-
+  #  maven build
+  - script: >
+      docker run -h OrtTrainingDev0 --rm --name onnxruntime-gpu-perf 
+      --volume $(Build.SourcesDirectory):/onnxruntime_src 
+      -e NIGHTLY_BUILD onnxruntime-ubuntu16.04-cuda10.1-cudnn7.6
+      /bin/bash -c "cd /onnxruntime_src/tools/perf_util &&
+      /usr/bin/mvn package && /bin/ls -la /onnxruntime_src/tools/perf_util/target"
+    displayName: 'Maven build'
 
 
   #
