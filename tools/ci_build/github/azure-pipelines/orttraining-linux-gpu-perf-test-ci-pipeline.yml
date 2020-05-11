@@ -29,7 +29,7 @@ jobs:
     displayName: 'Remove perf container'
 
   - script: >
-      docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-perf 
+      docker run --gpus all -h OrtTrainingDev0 --rm --name onnxruntime-gpu-perf 
       --volume $(Build.SourcesDirectory):/onnxruntime_src 
       --volume $(Build.BinariesDirectory):/build 
       --volume /bert_ort/bert_models:/build/bert_models:ro 
@@ -41,13 +41,13 @@ jobs:
       "--model_root" "/build/bert_models"
     displayName: 'Run bert performance tests'
 
-  - script: >
-      docker rm -f "onnxruntime-gpu-perf" || true
-    displayName: 'Remove perf container'
+  # - script: >
+  #     docker rm -f "onnxruntime-gpu-perf" || true
+  #   displayName: 'Remove perf container'
 
   # generate jdbc.properties
   - script: >
-      docker run --gpus all -h OrtTrainingDev0 --name onnxruntime-gpu-perf 
+      docker run --gpus all -h OrtTrainingDev0 --rm --name onnxruntime-gpu-perf 
       --volume $(Build.SourcesDirectory):/onnxruntime_src 
       -e NIGHTLY_BUILD onnxruntime-ubuntu16.04-cuda10.1-cudnn7.6
       /bin/bash -c "/bin/mkdir -p /onnxruntime_src/tools/perf_util/src/main/resources &&
