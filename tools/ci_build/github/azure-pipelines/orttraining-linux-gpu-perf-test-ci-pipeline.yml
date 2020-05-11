@@ -24,9 +24,9 @@ jobs:
     displayName: 'Build performance tests'
 
   # run training test(s)
-  - script: >
-      docker rm -f "onnxruntime-gpu-perf" || true
-    displayName: 'Remove perf container'
+  # - script: >
+  #     docker rm -f "onnxruntime-gpu-perf" || true
+  #   displayName: 'Remove perf container'
 
   - script: >
       docker run --gpus all -h OrtTrainingDev0 --rm --name onnxruntime-gpu-perf 
