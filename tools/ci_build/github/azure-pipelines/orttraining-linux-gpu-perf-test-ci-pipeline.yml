@@ -47,7 +47,7 @@ jobs:
 
   # generate jdbc.properties
   - script: >
-      docker run --gpus all -h OrtTrainingDev0 --rm --name onnxruntime-gpu-perf 
+      docker run -h OrtTrainingDev0 --rm --name onnxruntime-gpu-perf 
       --volume $(Build.SourcesDirectory):/onnxruntime_src 
       -e NIGHTLY_BUILD onnxruntime-ubuntu16.04-cuda10.1-cudnn7.6
       /bin/bash -c "/bin/mkdir -p /onnxruntime_src/tools/perf_util/src/main/resources &&
