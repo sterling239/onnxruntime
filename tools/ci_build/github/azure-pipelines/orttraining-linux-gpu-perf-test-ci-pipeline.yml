@@ -54,7 +54,7 @@ jobs:
       --volume $(Build.SourcesDirectory):/onnxruntime_src 
       -e NIGHTLY_BUILD onnxruntime-ubuntu16.04-cuda10.1-cudnn7.6
       /bin/bash -c "cd /onnxruntime_src/tools/perf_util &&
-      /usr/bin/mvn package && /bin/ls -la /onnxruntime_src/tools/perf_util/target"
+      mvn package && ls -la /onnxruntime_src/tools/perf_util/target"
     displayName: 'Maven build'
 
 
