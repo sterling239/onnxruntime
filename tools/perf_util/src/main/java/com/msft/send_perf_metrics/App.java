@@ -51,12 +51,12 @@ public class App {
 
 				if (!filename.startsWith(".") && filename.endsWith(".json")) {
 					perf_metrics.add(file);
+					System.out.println(filename);
 				}
 				return FileVisitResult.CONTINUE;
 			}
 
 		});
-		System.out.println(perf_metrics);
 
 		final Path cwd_dir = Paths.get(System.getProperty("user.dir"));
 		// git rev-parse HEAD
